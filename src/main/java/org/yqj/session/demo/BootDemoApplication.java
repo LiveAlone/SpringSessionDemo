@@ -2,7 +2,10 @@ package org.yqj.session.demo;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import org.springframework.session.MapSessionRepository;
+import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @SpringBootApplication
 @Controller
-@EnableRedisHttpSession
+@EnableSpringHttpSession
 public class BootDemoApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder()
@@ -30,5 +33,10 @@ public class BootDemoApplication {
     @ResponseBody
     public String indexPage(){
         return "this is test index paging info";
+    }
+
+    @Bean
+    public MapSessionRepository sessionRepository(){
+        return new MapSessionRepository();
     }
 }
